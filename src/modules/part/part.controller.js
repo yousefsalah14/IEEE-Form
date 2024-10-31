@@ -7,7 +7,7 @@ export const register  = asyncHandler(async (req, res, next) => {
     const {email , preference} = req.body
     const part = await Part.findOne({email , preference})
     
-    if(part)return next(new Error("You Have Register To This Track Before", { cause:400 }));
+    if(part)return next(new Error("You have already registered for this track.😠", { cause:400 }));
     await Part.create({...req.body})
       // send mail
   const html = registerTemp();
@@ -17,7 +17,7 @@ export const register  = asyncHandler(async (req, res, next) => {
     html,
   });
   if (!messageSent) return next(new Error("Something Wrong! email not sent! "));
-    return res.json({ success: true, message: "You Are Register Successfully ✅" });
+    return res.json({ success: true, message: "You have registered successfully! ✅" });
 });
 export const updatePart = asyncHandler(async (req, res, next) => {
     const { status} = req.body
